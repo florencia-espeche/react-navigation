@@ -1,26 +1,63 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Card from './components/Card';
+import { initNavigation } from '@noriginmedia/react-spatial-navigation';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+initNavigation();
+
+
+class App extends React.Component {
+  state = {
+    data: []
+  };
+  myRef = React.createRef();
+
+  getData = async () => {
+    const response = await fetch('data.json');
+    const data = await response.json();
+    this.setState({ data: data });
+  };
+
+  componentDidMount() {
+    this.getData();
+  };
+
+  prev = () => {
+    const slide = this.myRef.current;
+    slide.scrollLeft -= slide.offsetWidth;
+    if (slide.scrollLeft <= 0) {
+      slide.scrollLeft = slide.scrollWidth;
+    }
+  };
+
+  next = () => {
+    const slide = this.myRef.current;
+    slide.scrollLeft += slide.offsetWidth;
+    if (slide.scrollLeft <= (slide.scrollWidth - slide.offsetWidth)) {
+      slide.scrollLeft = 0;
+    }
+  }
+
+  render() {
+
+    const { data } = this.state;
+    return (
+      <div className="wrapper">
+        <div className="app" ref={this.myRef}>
+          {data.map((item, index) => (
+            <Card data={item} key={index} />))}
+        </div>
+        <div className="row">
+          <div className="prev">
+            &#706;
+                </div>
+          <div className="next">
+            &#707;
+          </div>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;
