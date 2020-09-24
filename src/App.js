@@ -45,13 +45,13 @@ class App extends React.Component {
       <div className="wrapper">
         <div className="app" ref={this.myRef}>
           {data.map((item, index) => (
-            <Card data={item} key={index} />))}
+            <Card focusKey={`CARD-${index}`} data={item} key={index} />))}
         </div>
         <div className="row">
-          <div className="prev">
+          <div className="prev" onClick={this.prev}>
             &#706;
                 </div>
-          <div className="next">
+          <div className="next" onClick={this.next}>
             &#707;
           </div>
         </div>
