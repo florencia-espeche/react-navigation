@@ -28,10 +28,13 @@ body {
 }
 
 .card {
-  min-width: 25%;
+  min-width: 15%;
   overflow: hidden; 
   margin: 5px;
-  border: 1px solid snow;
+}
+
+.focusStyles {
+  border: 5px solid white;
 }
 
 .card img {

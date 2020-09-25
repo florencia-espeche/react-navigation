@@ -10,9 +10,13 @@ class Card extends React.Component {
 
   render() {
     const {data} = this.props;
+    let focusStyles;
+    if(this.props.focused) {
+      focusStyles="focusStyles"
+    }
     return (
       // la props focused la pasa la hoc
-      <div className="card" style={{border: this.props.focused ? '2px solid red' : 'none'}}>
+      <div className={`card ${focusStyles}`}>
         <img src={data.src} alt={data.description} />
       </div>
     )

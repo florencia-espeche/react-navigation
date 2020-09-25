@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './components/Card';
-import { initNavigation } from '@noriginmedia/react-spatial-navigation';
 
+import { initNavigation } from '@noriginmedia/react-spatial-navigation';
 
 initNavigation();
 
@@ -22,19 +22,23 @@ class App extends React.Component {
     this.getData();
   };
 
-  prev = () => {
-    const slide = this.myRef.current;
-    slide.scrollLeft -= slide.offsetWidth;
-    if (slide.scrollLeft <= 0) {
-      slide.scrollLeft = slide.scrollWidth;
+  prev = (event) => {
+    if (event.keyCode === 13) {
+      const slide = this.myRef.current;
+      slide.scrollLeft -= slide.offsetWidth;
+      if (slide.scrollLeft <= 0) {
+        slide.scrollLeft = slide.scrollWidth;
+      }
     }
   };
 
-  next = () => {
-    const slide = this.myRef.current;
-    slide.scrollLeft += slide.offsetWidth;
-    if (slide.scrollLeft <= (slide.scrollWidth - slide.offsetWidth)) {
-      slide.scrollLeft = 0;
+  next = (event) => {
+    if (event.keyCode === 13) {
+      const slide = this.myRef.current;
+      slide.scrollLeft += slide.offsetWidth;
+      if (slide.scrollLeft <= (slide.scrollWidth - slide.offsetWidth)) {
+        slide.scrollLeft = 0;
+      }
     }
   }
 
@@ -48,12 +52,12 @@ class App extends React.Component {
             <Card focusKey={`CARD-${index}`} data={item} key={index} />))}
         </div>
         <div className="row">
-          <div className="prev" onClick={this.prev}>
+          <button className="prev" onKeyDown={this.prev}>
             &#706;
-                </div>
-          <div className="next" onClick={this.next}>
+          </button>
+          <button className="next" onKeyDown={this.next}>
             &#707;
-          </div>
+          </button>
         </div>
       </div>
     )
